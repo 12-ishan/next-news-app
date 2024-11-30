@@ -2,11 +2,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const generalSettings = createAsyncThunk(
   'settings/generalSettings',
   async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/v1/home');
+      const response = await axios.get(`${apiUrl}/v1/home`);
       console.log(response);
       return response.data;
     } catch (error) {

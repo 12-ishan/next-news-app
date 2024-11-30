@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const searchProducts = createAsyncThunk(
   'search/searchProducts',
   async (searchQuery) => {
-    const response = await axios.get(`http://127.0.0.1:8000/api/v1/search?query=${searchQuery}`);
+    const response = await axios.get(`${apiUrl}/v1/search?query=${searchQuery}`);
     return response.data;
   }
 );

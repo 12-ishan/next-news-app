@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNewsDetails } from '@/redux/slice/newsDetailSlice';
 import Loader from '@/components/layout/Loader';
+import Image from 'next/image';
 
 
 const NewsDetailPage = ({ params }) => {
@@ -41,7 +42,7 @@ const NewsDetailPage = ({ params }) => {
             <div className="col-md-6">
 
               {newsDetail.image && (
-                <img src={newsDetail.image} alt={newsDetail.slug} className="img-fluid" />
+                <Image src={newsDetail.image} alt={newsDetail.slug} className="img-fluid" />
               )}
             </div>
             <div className="col-md-6">

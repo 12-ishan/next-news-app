@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchNewsByCategory = createAsyncThunk(
   'news/fetchNewsByCategory',
   async ({ slug }) => {
-    const response = await axios.get(`http://127.0.0.1:8000/api/v1/get-news/${slug}`);
+    const response = await axios.get(`${apiUrl}/v1/get-news/${slug}`);
     console.log(response);
     return response.data; 
   }

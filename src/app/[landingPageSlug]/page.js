@@ -8,6 +8,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import PageNotFound from '@/components/layout/PageNotFound';
 
+
+
 function Page({ params }) {
     const { landingPageSlug } = params;
     const dispatch = useDispatch();
@@ -55,9 +57,9 @@ function Page({ params }) {
                                     </Link>
                                 </div>
                                 <div className="col-md-12 col-lg-5 text-center pl-md-5">
-                                <h2><a href="#">50% less in all items</a></h2>
-                                <p className="post-meta mb-4">By <a href="#">Carl Smith</a> <span className="block-8-sep">&bullet;</span> September 3, 2018</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam iste dolor accusantium facere corporis ipsum animi deleniti fugiat. Ex, veniam?</p>
+                                {/* <h2><a href="#">50% less in all items</a></h2> */}
+                                {/* <p className="post-meta mb-4">By <a href="#">Carl Smith</a> <span className="block-8-sep">&bullet;</span> September 3, 2018</p> */}
+                                <p>{pageData.description}</p>
                                 <p><a href="#" className="btn btn-primary btn-sm">Shop Now</a></p>
                             </div>
                             </div>

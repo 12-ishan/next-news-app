@@ -2,9 +2,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const landingPages = createAsyncThunk('landingPages/fetch', async (slug, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/v1/landing-pages/${slug}`);
+    const response = await axios.get(`${apiUrl}/v1/landing-pages/${slug}`);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);

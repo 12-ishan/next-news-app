@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const apiUrl = 'http://127.0.0.1:8000/api/v1/contact';
+//const apiUrl = 'http://127.0.0.1:8000/api/v1/contact';
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const storeContact = createAsyncThunk('contacts', async (contactData) => {
-  const response = await axios.post(apiUrl, contactData);
+  const response = await axios.post(`${apiUrl}/v1/contact`, contactData);
   //console.log(response);
   return response.data;
 });

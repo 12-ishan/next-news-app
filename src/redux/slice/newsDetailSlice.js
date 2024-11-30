@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const fetchNewsDetails = createAsyncThunk(
   'news/fetchNewsDetails',
   async ({slug }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/v1/news-detail/${slug}`);
+      const response = await axios.get(`${apiUrl}/v1/news-detail/${slug}`);
       
       return response.data.response;
     } catch (error) {
