@@ -15,25 +15,24 @@ import NewsCategories from '../NewsCategories';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import { websiteLogo } from '@/redux/slice/generalSettingsSlice';
 import Image from 'next/image';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
-
-
-function Header({ cartData = [] }) {
+function Header() {
   const dispatch = useDispatch();
   const router = useRouter();
   const logo = useSelector((state) => state.generalSettings.websiteLogo);
   const [searchQuery, setSearchQuery] = useState('');
-  console.log(searchQuery);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-      dispatch(websiteLogo());
-  }, []);
- 
- 
+    dispatch(websiteLogo()).finally(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -46,53 +45,77 @@ function Header({ cartData = [] }) {
     <header className="site-navbar" role="banner">
       <div className="site-navbar-top">
         <div className="container">
-          <div className="row align-items-center justify-content-between">
-
-          <div className="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
-          <form onSubmit={handleSearch} className="site-block-top-search d-flex align-items-center">
-            <span className="icon icon-search2"></span>
-            <input  type="text" 
-                  className="form-control border-0 mx-2" 
-                  placeholder="Search"
-                  value={searchQuery} 
-                  onChange={(e) => setSearchQuery(e.target.value)}/>
-            <button type="submit" className="btn btn-outline-secondary">Search</button>
-
-          </form>
-        </div>
-
-
-            <div className="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
-              <div className="">
-                <Link href="/" className="js-logo-clone "> <Image
-                    className="img-fluid"
-                    src={logo.image}
-                    alt="logo"
-                    width={100} 
-                    height={100} 
-                /></Link>
+          <div className="row align-items-center flex-row-reverse">
+            <div className="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-left">
+              <div>
+                <Link href="/" className="js-logo-clone">
+                  {isLoading ? (
+                    <Skeleton width={100} height={40} />
+                  ) : (
+                    <Image
+                      className="img-fluid"
+                      src={logo.image}
+                      alt="logo"
+                      width={100}
+                      height={100}
+                    />
+                  )}
+                </Link>
               </div>
             </div>
 
+            <div className="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+              <form
+                onSubmit={handleSearch}
+                className="site-block-top-search d-flex align-items-center"
+              >
+                <span className="icon icon-search2"></span>
+                <input
+                  type="text"
+                  className="form-control border-0 mx-2"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button type="submit" className="btn btn-outline-secondary">
+                  Search
+                </button>
+              </form>
+            </div>
 
-           
-
+            <div className="col-6 col-md-4 order-3 order-md-3 text-right">
+              <div className="site-top-icons">
+                <ul>
+                  <li className="d-inline-block d-md-none ml-md-0">
+                    <a href="/" className="site-menu-toggle js-menu-toggle">
+                      <span className="icon-menu"></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-      </div> 
-     
-      <nav className="site-navigation text-right text-md-center" role="navigation">
+      </div>
+
+      <nav
+        className="site-navigation text-right text-md-center"
+        role="navigation"
+      >
         <div className="container">
           <ul className="site-menu js-clone-nav d-none d-md-block">
-          <li>
-          <Link href='/'>Home</Link></li> 
-          <NewsCategories />
-          <li><Link href='/contact'>Contact</Link></li>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <NewsCategories />
+            <li>
+              <Link href="/contact">Contact</Link>
+            </li>
           </ul>
         </div>
       </nav>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
