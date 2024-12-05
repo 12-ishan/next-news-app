@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
  // Use the environment variable to determine the API URL
- const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+ const apiUrl = process.env.API_URL;
 
 export const fetchNewsCategories = createAsyncThunk(
   'newsCategory/fetchNewsCategories',

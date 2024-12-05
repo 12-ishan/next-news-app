@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Loader from './layout/Loader';
 import Link from 'next/link';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 function HomePageHeader() {
   const dispatch = useDispatch();
@@ -15,11 +17,15 @@ function HomePageHeader() {
 
   useEffect(() => {
       dispatch(generalSettings()); 
-  }, []);
+  }, [dispatch]);
 
   
   if (status === 'loading') {
-    return <Loader />;
+    return (
+      <div className="site-blocks-cover"> 
+          <Skeleton style={{ backgroundColor: '#e0e0e0' }} height={500} />    
+        </div>
+    );
   }
 
   if (status === 'failed') {

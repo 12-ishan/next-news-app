@@ -35,7 +35,7 @@ const Category = ({ params }) => {
       <Breadcrumb pageName= {slug} />
       <div className="site-section">
         <div className="container">
-          <div className="row mb-5">
+          <div className="row justify-content-center mb-5">
             <div className="col-md-9 order-2">
             
 

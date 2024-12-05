@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const apiUrl = process.env.API_URL;
 
-export const searchProducts = createAsyncThunk(
+export const newsSearch = createAsyncThunk(
   'search/searchProducts',
   async (searchQuery) => {
     const response = await axios.get(`${apiUrl}/v1/search?query=${searchQuery}`);
@@ -21,15 +21,15 @@ const searchSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(searchProducts.pending, (state) => {
+      .addCase(newsSearch.pending, (state) => {
         state.status = 'loading';
         state.results = [];
       })
-      .addCase(searchProducts.fulfilled, (state, action) => {
+      .addCase(newsSearch.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.results = action.payload.results;
       })
-      .addCase(searchProducts.rejected, (state, action) => {
+      .addCase(newsSearch.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
